@@ -1,0 +1,148 @@
+.testimonials-section {
+    background-color: #f8f9fa;
+    padding: 3rem 0;
+    text-align: center;
+    overflow: hidden;
+}
+
+.testimonials-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.testimonials-header {
+    max-width: 720px;
+    padding: 0 1rem;
+}
+
+.testimonials-title {
+    font-size: 2.5rem;
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.testimonials-description {
+    font-size: 1.2rem;
+    color: #666;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.testimonials-marquee {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.marquee-container {
+    display: flex;
+    gap: 1rem;
+    overflow: hidden;
+}
+
+.marquee-content {
+    display: flex;
+    gap: 1rem;
+    animation: marquee 40s linear infinite;
+    flex-shrink: 0;
+}
+
+.marquee-content:hover {
+    animation-play-state: paused;
+}
+
+.testimonial-card {
+    width: 300px;
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    flex-shrink: 0;
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.author-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.author-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.author-name {
+    font-weight: 600;
+    color: #333;
+}
+
+.author-handle {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.testimonial-text {
+    color: #444;
+    line-height: 1.6;
+}
+
+.marquee-gradient-left,
+.marquee-gradient-right {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 33.33%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.marquee-gradient-left {
+    left: 0;
+    background: linear-gradient(to right, #f8f9fa, transparent);
+}
+
+.marquee-gradient-right {
+    right: 0;
+    background: linear-gradient(to left, #f8f9fa, transparent);
+}
+
+@keyframes marquee {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(calc(-100% - 1rem));
+    }
+}
+
+@media (max-width: 768px) {
+    .testimonials-title {
+        font-size: 2rem;
+    }
+    
+    .testimonials-description {
+        font-size: 1rem;
+    }
+    
+    .marquee-gradient-left,
+    .marquee-gradient-right {
+        display: none;
+    }
+} 
