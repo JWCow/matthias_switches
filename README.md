@@ -1,6 +1,14 @@
 # Keyboard Switch Selector
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python](https://img.shields.io/badge/Python-3.7%2B-blue)](https://www.python.org/)
+[![Flask](https://img.shields.io/badge/Flask-3.0.0-green)](https://flask.palletsprojects.com/)
+[![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-purple)](https://getbootstrap.com/)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
+
 An interactive web application that helps mechanical keyboard enthusiasts find their perfect keyboard switches based on preferences. This tool allows users to filter and explore different mechanical keyboard switches by their physical characteristics.
+
+![Keyboard Switch Selector Preview](preview.jpg)
 
 ## Description
 
