@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyboard Switch Selector</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .switch-card {
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+        .switch-card:hover {
+            transform: translateY(-5px);
+        }
+        .range-values {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+        }
+        .hero-section {
+            background: linear-gradient(135deg, #6c5ce7, #a363d9);
+            color: white;
+            padding: 4rem 0;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero-section">
+        <div class="container">
+            <h1 class="display-4">Keyboard Switch Selector</h1>
+            <p class="lead">Find your perfect mechanical keyboard switch based on your preferences</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Filter Switches</h5>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Actuation Force (gf)</label>
+                            <input type="range" class="form-range" id="actuationForce" min="35" max="80" step="1">
+                            <div class="range-values">
+                                <span>35gf</span>
+                                <span>80gf</span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Switch Type</label>
+                            <select class="form-select" id="switchType">
+                                <option value="all">All Types</option>
+                                <option value="linear">Linear</option>
+                                <option value="tactile">Tactile</option>
+                                <option value="clicky">Clicky</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Pre-travel Distance (mm)</label>
+                            <input type="range" class="form-range" id="preTravel" min="1" max="3" step="0.1">
+                            <div class="range-values">
+                                <span>1mm</span>
+                                <span>3mm</span>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary w-100" id="applyFilters">Apply Filters</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <div class="row" id="switchResults">
+                    <!-- Switch cards will be dynamically populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Will be connected to the Python backend
+        document.getElementById('applyFilters').addEventListener('click', async () => {
+            const actuationForce = document.getElementById('actuationForce').value;
+            const switchType = document.getElementById('switchType').value;
+            const preTravel = document.getElementById('preTravel').value;
+
+            try {
+                const response = await fetch('/filter_switches', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        actuationForce,
+                        switchType,
+                        preTravel
+                    })
+                });
+
+                const switches = await response.json();
+                displaySwitches(switches);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+
+        function displaySwitches(switches) {
+            const container = document.getElementById('switchResults');
+            container.innerHTML = '';
+
+            switches.forEach(switchData => {
+                const card = document.createElement('div');
+                card.className = 'col-md-6 mb-3';
+                card.innerHTML = `
+                    <div class="card switch-card">
+                        <div class="card-body">
+                            <h5 class="card-title">${switchData.name}</h5>
+                            <p class="card-text">
+                                <strong>Type:</strong> ${switchData.type}<br>
+                                <strong>Actuation Force:</strong> ${switchData.actuationForce}gf<br>
+                                <strong>Pre-travel:</strong> ${switchData.preTravel}mm
+                            </p>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+    </script>
+</body>
+</html> 
